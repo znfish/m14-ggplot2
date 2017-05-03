@@ -36,7 +36,7 @@ Just as the grammar of language helps us construct meaningful sentences out of w
 
 Wickham further organizes these components into **layers**, where each layer has a single _geometric object_, _statistical transformation_, and _position adjustment_. Following this grammar, you can think of each plot as a set of layers of images, where each image's appearance is based on some aspect of the data set.
 
-All together, this grammar enables us to discuss what plots look like using a standard set of vocabulary. And like with `dplyr` and the _Grammar of Data Manipulation, `ggplot2` uses this grammar directly to declare plots, allowing you to more easily create specific visual images.
+All together, this grammar enables us to discuss what plots look like using a standard set of vocabulary. And like with `dplyr` and the _Grammar of Data Manipulation_, `ggplot2` uses this grammar directly to declare plots, allowing you to more easily create specific visual images.
 
 
 ## Basic Plotting with `ggplot2`
@@ -63,7 +63,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-![plot of chunk basic_mpg]m14-imgs/basic_mpg-1.png)
+![plot of chunk basic_mpg](m14-imgs/basic_mpg-1.png)
 
 To walk through the above code:
 
@@ -77,7 +77,7 @@ To walk through the above code:
 
 Thus basic simple plots can be created simply by specifying a data set, a `geom`, and a set of aesthetic mappings.
 
-- Note that `ggplot2` library does include a `qlot()` function for creating "quick plots", which acts as a convenient shortcut for making simple, "default"-like plots. However, for this course you should focus on thinking about plots in terms of the _Grammar of Graphics_ and use the `ggplot()` function instead.
+- Note that `ggplot2` library does include a `qplot()` function for creating "quick plots", which acts as a convenient shortcut for making simple, "default"-like plots. However, for this course you should focus on thinking about plots in terms of the _Grammar of Graphics_ and use the `ggplot()` function instead.
 
 
 ### Aesthetic Mappings
@@ -92,7 +92,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class))
 ```
 
-![plot of chunk aes_color]m14-imgs/aes_color-1.png)
+![plot of chunk aes_color](m14-imgs/aes_color-1.png)
 
 (`ggplot2` will even create a legend for you!)
 
@@ -104,7 +104,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy), color = "blue")  # blue points!
 ```
 
-![plot of chunk color_blue]m14-imgs/color_blue-1.png)
+![plot of chunk color_blue](m14-imgs/color_blue-1.png)
 
 
 ## Complex Plots
@@ -136,7 +136,7 @@ ggplot(data = mpg) +
   geom_bar(mapping = aes(x = class))  # no y mapping needed!
 ```
 
-<img src="img/geom_examples-1.png" title="plot of chunk geom_examples" alt="plot of chunk geom_examples" width="400px" /><img src="img/geom_examples-2.png" title="plot of chunk geom_examples" alt="plot of chunk geom_examples" width="400px" />
+<img src="m14-imgs/geom_examples-1.png" title="plot of chunk geom_examples" alt="plot of chunk geom_examples" width="400px" /><img src="m14-imgs/geom_examples-2.png" title="plot of chunk geom_examples" alt="plot of chunk geom_examples" width="400px" />
 
 What makes this really powerful is that you can add **multiple geometries** to a plot, thus allowing you to create complex graphics showing multiple aspects of your data
 
@@ -148,7 +148,7 @@ ggplot(data = mpg) +
   geom_smooth(mapping = aes(x = displ, y = hwy))
 ```
 
-![plot of chunk multi_geom]m14-imgs/multi_geom-1.png)
+![plot of chunk multi_geom](m14-imgs/multi_geom-1.png)
 
 Of course the aesthetics for each `geom` can be different, so you could show multiple lines on the same plot (or with different colors, styles, etc). It's also possible to give each `geom` a different `data` argument, so that you can show multiple data sets in the same plot.
 
@@ -175,7 +175,7 @@ ggplot(data = mpg) +
   stat_bin(aes(x=hwy, color=hwy), binwidth=4)  # binned into groups of 4 units
 ```
 
-![plot of chunk stat_summary]m14-imgs/stat_summary-1.png)
+![plot of chunk stat_summary](m14-imgs/stat_summary-1.png)
 
 Notice the above chart is actually a [histogram](https://en.wikipedia.org/wiki/Histogram)! Indeed, almost every `stat` transformation corresponds to a particular `geom` (and vice versa) by default. Thus they can often be used interchangeably, depending on how you want to emphasize your layer creation.
 
@@ -198,9 +198,9 @@ ggplot(data = mpg) +
   geom_bar(mapping = aes(x = hwy, fill=class))  # fill color, not outline color
 ```
 
-![plot of chunk stacked_bar]m14-imgs/stacked_bar-1.png)
+The `geom_bar` by default uses a position adjustment of `"stack"`, which makes each rectangle's height proprotional to its value and _stacks_ them on top of each other. We can use the **`position`** argument to specify what position adjustment rules to follow:
+![plot of chunk stacked_bar](m14-imgs/stacked_bar-1.png)
 
-The `geom_bar` by default uses a position adjustment of `"stack"`, which makes each "bar" a high appropriate to its value and _stacks_ them on top of each other. We can use the **`position`** argument to specify what position adjustment rules to follow:
 
 
 ```r
@@ -214,7 +214,7 @@ ggplot(data = mpg) +
   geom_bar(mapping = aes(x = hwy, fill=drv), position="dodge")
 ```
 
-<img src="img/position_examples-1.png" title="plot of chunk position_examples" alt="plot of chunk position_examples" width="400px" /><img src="img/position_examples-2.png" title="plot of chunk position_examples" alt="plot of chunk position_examples" width="400px" />
+<img src="m14-imgs/position_examples-1.png" title="plot of chunk position_examples" alt="plot of chunk position_examples" width="400px" /><img src="m14-imgs/position_examples-2.png" title="plot of chunk position_examples" alt="plot of chunk position_examples" width="400px" />
 
 Check the documentation for each particular `geom` to learn more about its positioning adjustments.
 
@@ -262,20 +262,20 @@ suv = mpg %>% filter(class == "suv")  # suvs
 compact = mpg %>% filter(class == "compact")  # compact cars
 
 # scales
-x_scale <- scale_x_continuous(limits = range(mpg$displ))
-y_scale <- scale_y_continuous(limits = range(mpg$hwy))
-col_scale <- scale_colour_discrete(limits = unique(mpg$drv))
+x.scale <- scale_x_continuous(limits = range(mpg$displ))
+y.scale <- scale_y_continuous(limits = range(mpg$hwy))
+col.scale <- scale_colour_discrete(limits = unique(mpg$drv))
 
 ggplot(data = suv) +
   geom_point(mapping = aes(x = displ, y = hwy, color = drv)) +
-  x_scale + y_scale + col_scale
+  x.scale + y.scale + col.scale
 
 ggplot(data = compact) +
   geom_point(mapping = aes(x = displ, y = hwy, color = drv)) +
-  x_scale + y_scale + col_scale
+  x.scale + y.scale + col.scale
 ```
 
-<img src="img/scale_limit-1.png" title="plot of chunk scale_limit" alt="plot of chunk scale_limit" width="400px" /><img src="img/scale_limit-2.png" title="plot of chunk scale_limit" alt="plot of chunk scale_limit" width="400px" />
+<img src="m14-imgs/scale_limit-1.png" title="plot of chunk scale_limit" alt="plot of chunk scale_limit" width="400px" /><img src="m14-imgs/scale_limit-2.png" title="plot of chunk scale_limit" alt="plot of chunk scale_limit" width="400px" />
 
 Notice how it is easy to compare the two data sets to each other because the axes and colors match!
 
@@ -292,7 +292,7 @@ ggplot(data = mpg) +
   scale_color_brewer(palette = "Set3")
 ```
 
-![plot of chunk brewer_point]m14-imgs/brewer_point-1.png)
+![plot of chunk brewer_point](m14-imgs/brewer_point-1.png)
 
 Note that you can get the palette name from the _colorbrewer_ website by looking at the `scheme` query parameter in the URL. Or see the diagram [here](https://bl.ocks.org/mbostock/5577023) and hover the mouse over each palette for the name.
 
@@ -325,7 +325,7 @@ ggplot(data = mpg) +
   facet_wrap(~class)
 ```
 
-![plot of chunk facets]m14-imgs/facets-1.png)
+![plot of chunk facets](m14-imgs/facets-1.png)
 
 Note that the argument to `facet_wrap()` function is written with a tilde (**`~`**) in front of it. This specifies that the column name should be treated as a **formula**. A formula is a bit like an "equation" in mathematics; it's like a string representing what set of operations you want to perform (putting the column name in a string also works in this simple case). Formulas are in fact the same structure used with _standard evaluation_ in `dplyr`; putting a `~` in front of an expression (such as `~ desc(colname)`) allows SE to work.
 
@@ -347,7 +347,7 @@ ggplot(data = mpg) +
        color = "Car Type")  # legend label for the "color" property
 ```
 
-![plot of chunk labels]m14-imgs/labels-1.png)
+![plot of chunk labels](m14-imgs/labels-1.png)
 
 It is possible to add labels into the plot itself (e.g., to label each point or line) by adding a new `geom_text` or `geom_label` to the plot; effectively, you're plotting an extra set of data which happen to be the variable names:
 
@@ -363,7 +363,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +  # same mapping for all 
   geom_label(data = best_in_class, mapping = aes(label = model), alpha = 0.5)
 ```
 
-![plot of chunk annotations]m14-imgs/annotations-1.png)
+![plot of chunk annotations](m14-imgs/annotations-1.png)
 
 "R for Data Science" (linked in the resources) recommends using the [`ggrepel`](https://github.com/slowkow/ggrepel) package to help position labels.
 
@@ -375,7 +375,7 @@ Data visualizations can also be highly effective for **exploratory analysis**, i
 
 While `ggplot2` does not directly support interactive visualizations, there are a number of additional R libraries that provide this functionality, including:
 
-- [**`ggvis`**](http://ggvis.rstudio.com/) is a library that uses the Grammar of Graphics (similar to ``ggplot`), but for interactive visualizations. The interactivity is provide through the [`shiney`](http://www.rstudio.com/shiny/) library, which we will learn later in the course.
+- [**`ggvis`**](http://ggvis.rstudio.com/) is a library that uses the Grammar of Graphics (similar to `ggplot`), but for interactive visualizations. The interactivity is provide through the [`shiney`](http://www.rstudio.com/shiny/) library, which we will learn later in the course.
 
 - [**Plotly**](https://plot.ly/r/) is a open-source library for developing interactive visualizations. It provides a number of "standard" interactions (pop-up labels, drag to pan, select to zoom, etc) automatically. Moreover, it is possible to take a `ggplot2` plot and [wrap](https://plot.ly/ggplot2/) it in Plotly in order to make it interactive. Plotly has many examples to learn from, though a less effective set of documentation.
 
